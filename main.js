@@ -446,6 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalCaptionToggleEn) modalCaptionToggleEn.textContent = visitorCaptionsEnabled ? 'Captions: On' : 'Captions: Off';
             if (modalCaptionToggleTh) modalCaptionToggleTh.textContent = visitorCaptionsEnabled ? 'คำบรรยาย: เปิด' : 'คำบรรยาย: ปิด';
 
+            modal.classList.toggle('has-caption-controls', captionsEnabled && hasCaptionData);
             modal.classList.toggle('has-caption', shouldShowCaption);
             modalCaption.classList.toggle('visible', shouldShowCaption);
             modalCaption.setAttribute('aria-hidden', shouldShowCaption ? 'false' : 'true');
@@ -623,6 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
             exitImmersiveMode();
             modal.classList.remove('show-modal');
             modal.classList.remove('has-caption');
+            modal.classList.remove('has-caption-controls');
             if (modalCaption) modalCaption.classList.remove('visible');
             if (modalCaptionToggle) modalCaptionToggle.classList.remove('visible');
             if (modalFullscreenToggle) modalFullscreenToggle.classList.remove('visible');
