@@ -405,6 +405,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentCaptionSrc = '';
         let modalIsImmersive = false;
 
+        const getModalCenterY = () => (
+            modal.classList.contains('has-caption') && window.innerWidth <= 768 ? '-64%' : '-50%'
+        );
+        const getModalRestTransform = (scale = '') => `translate(-50%, ${getModalCenterY()})${scale}`;
+        const getModalOffsetTransform = (offsetX) => `translate(calc(-50% + ${offsetX}px), ${getModalCenterY()})`;
+
         const normalizeCaptionPath = (src) => {
             try {
                 return new URL(src, window.location.href).pathname.replace(/^\/+/, '');
@@ -433,8 +439,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalCaptionToggleEn) modalCaptionToggleEn.textContent = visitorCaptionsEnabled ? 'Captions: On' : 'Captions: Off';
             if (modalCaptionToggleTh) modalCaptionToggleTh.textContent = visitorCaptionsEnabled ? 'คำบรรยาย: เปิด' : 'คำบรรยาย: ปิด';
 
+            modal.classList.toggle('has-caption', shouldShowCaption);
             modalCaption.classList.toggle('visible', shouldShowCaption);
             modalCaption.setAttribute('aria-hidden', shouldShowCaption ? 'false' : 'true');
+            if (modal.classList.contains('show-modal')) {
+                modalImg.style.transform = getModalRestTransform();
+            }
 
             if (!shouldShowCaption) {
                 if (modalCaptionKicker) modalCaptionKicker.textContent = '';
@@ -496,14 +506,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (direction !== 0) {
                         // Prep new image off-screen opposite to the swipe
                         modalImg.style.transition = 'none';
-                        modalImg.style.transform = `translate(calc(-50% + ${direction * 50}px), -50%)`;
+                        modalImg.style.transform = getModalOffsetTransform(direction * 50);
                         modalImg.style.opacity = '0';
                         
                         // Animate new image sliding into center
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
                                 modalImg.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
-                                modalImg.style.transform = `translate(-50%, -50%)`;
+                                modalImg.style.transform = getModalRestTransform();
                                 modalImg.style.opacity = '1';
                             });
                         });
@@ -511,13 +521,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
                                 modalImg.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
-                                modalImg.style.transform = `translate(-50%, -50%) scale(1)`;
+                                modalImg.style.transform = getModalRestTransform(' scale(1)');
                                 modalImg.style.opacity = '1';
                             });
                         });
                     } else {
                         modalImg.style.transition = 'none';
-                        modalImg.style.transform = `translate(-50%, -50%)`;
+                        modalImg.style.transform = getModalRestTransform();
                         modalImg.style.opacity = '1';
                     }
                 };
@@ -537,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (direction !== 0) {
                 // Animate old image sliding out
                 modalImg.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease';
-                modalImg.style.transform = `translate(calc(-50% + ${direction * -100}px), -50%)`;
+                modalImg.style.transform = getModalOffsetTransform(direction * -100);
                 modalImg.style.opacity = '0';
                 setTimeout(finalizeUpdate, 200);
             } else {
@@ -559,14 +569,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const parentSection = img.closest('section');
                 currentSectionImages = Array.from(parentSection.querySelectorAll('img'))
-                    .filter(i => !i.classList.contains('brand-logo') && !i.src.includes('brand_icons'))
-                    .sort((a, b) => Math.abs(a.getBoundingClientRect().top - b.getBoundingClientRect().top) > 100 
+                    .filter(i => !i.classList.contains('brand-logo') && !i.src.includes('brand_icons'));
+
+                if (window.innerWidth > 768) {
+                    currentSectionImages.sort((a, b) => Math.abs(a.getBoundingClientRect().top - b.getBoundingClientRect().top) > 100
                         ? a.getBoundingClientRect().top - b.getBoundingClientRect().top 
                         : a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+                }
                 
                 // Prep image state BEFORE making modal visible to prevent 1-frame flashes
                 modalImg.style.transition = 'none';
-                modalImg.style.transform = 'translate(-50%, -50%) scale(0.95)';
+                modalImg.style.transform = getModalRestTransform(' scale(0.95)');
                 modalImg.style.opacity = '0';
                 
                 modal.classList.add('show-modal');
@@ -602,6 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModal = () => {
             exitImmersiveMode();
             modal.classList.remove('show-modal');
+            modal.classList.remove('has-caption');
             if (modalCaption) modalCaption.classList.remove('visible');
             if (modalCaptionToggle) modalCaptionToggle.classList.remove('visible');
             if (modalFullscreenToggle) modalFullscreenToggle.classList.remove('visible');
@@ -609,7 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Clear transforms for next open
             setTimeout(() => {
                 modalImg.style.transition = 'none';
-                modalImg.style.transform = 'translate(-50%, -50%)';
+                modalImg.style.transform = getModalRestTransform();
                 modalImg.style.opacity = '1';
             }, 300);
         };
@@ -648,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateModal(currentImgIndex - 1, -1);
                 } else {
                     modalImg.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
-                    modalImg.style.transform = 'translate(-50%, -50%)';
+                    modalImg.style.transform = getModalRestTransform();
                     modalImg.style.opacity = '1';
                 }
             }
