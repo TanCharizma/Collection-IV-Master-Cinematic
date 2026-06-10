@@ -1913,9 +1913,9 @@ footer {
     }
 
     .hero-bg {
-        top: 92px;
-        bottom: 92px;
-        background-position: center 8%;
+        top: 132px;
+        bottom: 52px;
+        background-position: center top;
     }
 
     .hero-content {
@@ -2039,9 +2039,9 @@ footer {
     }
 
     .hero-bg {
-        top: 92px;
-        bottom: 96px;
-        background-position: center 8%;
+        top: 132px;
+        bottom: 56px;
+        background-position: center top;
     }
 
     .hero-content {

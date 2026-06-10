@@ -293,8 +293,13 @@
 
             if (distance < stopThreshold) {
                 stableFrames++;
-                if (isMobileScroll && elapsed >= minTrackTime && stableFrames >= 5) {
-                    restoreScrollBehavior();
+                if (isMobileScroll) {
+                    if (elapsed >= minTrackTime && stableFrames >= 5) {
+                        restoreScrollBehavior();
+                        return;
+                    }
+
+                    requestAnimationFrame(scrollLoop);
                     return;
                 }
 
