@@ -32,6 +32,7 @@
 
     const navHTML = `
     <div class="app-transition-curtain ${startClass}" id="appCurtain"></div>
+    <div class="mobile-status-cover" aria-hidden="true"></div>
     <nav class="${navClass}">
         <a href="${logoHref}" class="logo">${window.CLIENT_CONFIG.name}</a>
         <div class="nav-links">
@@ -184,6 +185,147 @@
 
     // Mobile Menu Logic
     const mobileToggle = navElement.querySelector('#mobileToggle');
+    const getHeaderOffset = () => Math.ceil((navElement && navElement.getBoundingClientRect().height) || 64);
+    const getAnchorTargetY = (targetElement) => {
+        const targetTop = targetElement.getBoundingClientRect().top + window.scrollY;
+
+        return Math.max(0, targetTop - getHeaderOffset() - 10);
+    };
+    let savedInlineScrollBehavior = null;
+    const forceInstantScrollBehavior = () => {
+        const root = document.documentElement;
+
+        if (savedInlineScrollBehavior === null) {
+            savedInlineScrollBehavior = root.style.scrollBehavior;
+        }
+
+        root.style.scrollBehavior = 'auto';
+    };
+    const restoreInstantScrollBehavior = () => {
+        if (savedInlineScrollBehavior === null) return;
+
+        const root = document.documentElement;
+
+        if (savedInlineScrollBehavior) {
+            root.style.scrollBehavior = savedInlineScrollBehavior;
+        } else {
+            root.style.removeProperty('scroll-behavior');
+        }
+
+        savedInlineScrollBehavior = null;
+    };
+    const instantScrollTo = (top) => {
+        forceInstantScrollBehavior();
+        window.scrollTo(0, top);
+        restoreInstantScrollBehavior();
+    };
+    const closeMobileMenu = () => {
+        navElement.classList.remove('nav-open');
+        document.body.style.overflow = '';
+    };
+    const runAfterViewportSettles = (callback, delay = 0) => {
+        const run = () => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(callback);
+            });
+        };
+
+        if (delay > 0) {
+            setTimeout(run, delay);
+        } else {
+            run();
+        }
+    };
+    let activeAnchorScroll = 0;
+    function scrollToAnchor(targetId, behavior = 'smooth') {
+        if (!targetId || targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (!target) return;
+
+        const scrollRun = ++activeAnchorScroll;
+        history.replaceState(null, null, targetId);
+
+        if (behavior === 'auto' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            instantScrollTo(getAnchorTargetY(target));
+            return;
+        }
+
+        forceInstantScrollBehavior();
+
+        const restoreScrollBehavior = () => {
+            if (scrollRun !== activeAnchorScroll) return;
+
+            restoreInstantScrollBehavior();
+        };
+
+        let isUserScrolling = false;
+        const stopCorrection = () => {
+            isUserScrolling = true;
+            restoreScrollBehavior();
+        };
+        ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
+            window.addEventListener(evt, stopCorrection, { once: true, passive: true });
+        });
+
+        const startTime = performance.now();
+        const minTrackTime = window.innerWidth <= 768 ? 1400 : 650;
+        let stableFrames = 0;
+        let lastTime = startTime;
+        let currentY = window.scrollY;
+
+        const scrollLoop = (time) => {
+            if (isUserScrolling || scrollRun !== activeAnchorScroll) {
+                restoreScrollBehavior();
+                return;
+            }
+
+            const isMobileScroll = window.innerWidth <= 768;
+            const dt = Math.min(isMobileScroll ? 24 : 32, time - lastTime || 16);
+            lastTime = time;
+            const targetY = getAnchorTargetY(target);
+            const diff = targetY - currentY;
+            const elapsed = time - startTime;
+            const distance = Math.abs(diff);
+            const stopThreshold = isMobileScroll ? 2.4 : 0.6;
+
+            if (distance < stopThreshold) {
+                if (isMobileScroll) {
+                    restoreScrollBehavior();
+                    return;
+                }
+
+                window.scrollTo(0, targetY);
+                stableFrames++;
+                if (elapsed >= minTrackTime && stableFrames >= 8) {
+                    restoreScrollBehavior();
+                    return;
+                }
+
+                requestAnimationFrame(scrollLoop);
+                return;
+            }
+
+            stableFrames = 0;
+            const lerpFactor = 1 - Math.exp(-0.002 * dt);
+            currentY += diff * lerpFactor;
+            window.scrollTo(0, currentY);
+            requestAnimationFrame(scrollLoop);
+        };
+
+        requestAnimationFrame((time) => {
+            lastTime = time;
+            scrollLoop(time);
+        });
+    }
+
+    const glideToAnchor = (targetId, delay = 0) => {
+        runAfterViewportSettles(() => scrollToAnchor(targetId), delay);
+    };
+
+    window.FolioLabScrollToAnchor = glideToAnchor;
+    window.CinematicScrollToAnchor = glideToAnchor;
+
     if (mobileToggle) {
         mobileToggle.addEventListener('click', () => {
             navElement.classList.toggle('nav-open');
@@ -195,21 +337,38 @@
             link.addEventListener('click', () => {
                 const href = link.getAttribute('href');
                 // If it's a home page hash link, let the interceptor handle the closing to prevent iOS GPU panic
-                if (isHomePage && href && href.startsWith('#')) return;
+                if (href && (href.startsWith('#') || (isHomePage && href.startsWith('index.html#')))) return;
 
-                navElement.classList.remove('nav-open');
-                document.body.style.overflow = '';
+                closeMobileMenu();
             });
         });
 
         // Cleanup: Ensure body scroll is restored if window is resized while menu is open
         window.addEventListener('resize', () => {
             if (window.innerWidth > 1024 && navElement.classList.contains('nav-open')) {
-                navElement.classList.remove('nav-open');
-                document.body.style.overflow = '';
+                closeMobileMenu();
             }
         });
     }
+
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link || link.classList.contains('back-to-top')) return;
+
+        const href = link.getAttribute('href');
+        const isSamePageHash = href && (href.startsWith('#') || (isHomePage && href.startsWith('index.html#')));
+        if (!isSamePageHash) return;
+
+        const targetId = href.substring(href.indexOf('#'));
+        if (!document.querySelector(targetId)) return;
+
+        e.preventDefault();
+
+        const wasMenuOpen = navElement.classList.contains('nav-open');
+        if (wasMenuOpen) closeMobileMenu();
+
+        glideToAnchor(targetId, wasMenuOpen ? 140 : 0);
+    });
 
     // Theme Switching Logic
     const themeToggle = navElement.querySelector('#themeToggle');
@@ -318,88 +477,32 @@
         });
     }
 
-    // Dynamic Layout-Aware Smooth Scroll & Hash Navigation Fix (Homepage Only)
-    if (isHomePage) {
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Intercept standard on-page clicks
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                if (anchor.classList.contains('back-to-top')) return;
-                
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        e.preventDefault();
-                        
-                        const executeScroll = () => {
-                            // Calculate target destination ONCE to prevent layout thrashing and freezing
-                            let targetY = Math.max(0, targetElement.getBoundingClientRect().top + window.scrollY - 64);
-        
-                            // Use native CSS smooth scrolling for hardware-accelerated, buttery smooth performance
-                            window.scrollTo({
-                                top: targetY,
-                                behavior: 'smooth'
-                            });
-                            
-                            history.replaceState(null, null, targetId);
-                        };
+    if (isHomePage && window.location.hash) {
+        window.addEventListener('load', () => {
+            const target = document.querySelector(window.location.hash);
+            if (!target) return;
 
-                        if (navElement.classList.contains('nav-open')) {
-                            navElement.classList.remove('nav-open');
-                            document.body.style.overflow = '';
-                            // Delay scroll by 100ms to prevent iOS Safari compositor crash after body unlock reflow
-                            setTimeout(executeScroll, 100);
-                        } else {
-                            executeScroll();
-                        }
-                    }
-                });
+            let isUserScrolling = false;
+            const stopCorrection = () => { isUserScrolling = true; };
+            ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
+                window.addEventListener(evt, stopCorrection, { once: true, passive: true });
             });
 
-            // 2. Fix cross-page navigation when arriving with a hash (e.g. index.html#motion)
-            if (window.location.hash) {
-                const targetElement = document.querySelector(window.location.hash);
-                
-                if (targetElement) {
-                    let isUserScrolling = false;
-                    
-                    // Stop correcting if the user manually tries to scroll
-                    const stopCorrection = () => isUserScrolling = true;
-                    ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
-                        window.addEventListener(evt, stopCorrection, { once: true, passive: true });
-                    });
+            let trackingActive = true;
+            const trackTarget = () => {
+                if (isUserScrolling || !trackingActive) return;
 
-                    let trackingActive = true;
-                    
-                    const trackTarget = () => {
-                        if (isUserScrolling || !trackingActive) return;
-                        
-                        const rectTop = targetElement.getBoundingClientRect().top;
-                        
-                        // If layout shifts push the target away from the header, immediately correct it
-                        if (Math.abs(rectTop - 64) > 2) {
-                            window.scrollTo(0, rectTop + window.scrollY - 64);
-                        }
-                        
-                        if (trackingActive) {
-                            requestAnimationFrame(trackTarget);
-                        }
-                    };
-
-                    // Start stapling the viewport to the target immediately
-                    trackTarget();
-
-                    // Safely disconnect the tracker once the page fully resolves
-                    window.addEventListener('load', () => { 
-                        setTimeout(() => trackingActive = false, 500); // Allow brief buffer for final renders
-                    });
-                    
-                    // Failsafe disconnect after 3 seconds
-                    setTimeout(() => trackingActive = false, 3000);
+                const targetY = getAnchorTargetY(target);
+                if (Math.abs(window.scrollY - targetY) > 2) {
+                    instantScrollTo(targetY);
                 }
-            }
-        });
+
+                requestAnimationFrame(trackTarget);
+            };
+
+            trackTarget();
+            setTimeout(() => { trackingActive = false; }, 3000);
+        }, { once: true });
     }
 
     // Auto-inject Config Data into HTML placeholders
@@ -411,6 +514,7 @@
 
         inject('clientNameHero', window.CLIENT_CONFIG.name);
         inject('splashClientName', window.CLIENT_CONFIG.name);
+        inject('splashCaption', window.CLIENT_CONFIG.splashCaption || '');
         inject('taglineEn', window.CLIENT_CONFIG.taglineEn);
         inject('taglineTh', window.CLIENT_CONFIG.taglineTh);
         

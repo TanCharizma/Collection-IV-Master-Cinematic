@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
     <!-- =================================================================== -->
     <!-- SEO & METADATA (Update these values for each new client) -->
@@ -33,7 +33,7 @@
     <link rel="manifest" href="manifest.json">
     <title>Portfolio | Client Name</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://player.vimeo.com">
     <link rel="preconnect" href="https://i.vimeocdn.com">
     <link rel="preload" as="image" href="image/hero/hero.webp" fetchpriority="high">
@@ -55,7 +55,10 @@
 
     <!-- Luxury Splash Screen -->
     <div id="splash-screen" class="splash-screen">
-        <div class="splash-logo" id="splashClientName"></div>
+        <div class="splash-stack">
+            <div class="splash-logo" id="splashClientName"></div>
+            <div class="splash-caption" id="splashCaption"></div>
+        </div>
         <script>
             // Instantly inject the client name and wait for fonts to fully load before starting the animation to completely eliminate FOUT (Flash of Unstyled Text)
             const splashLogo = document.getElementById('splashClientName');
@@ -63,6 +66,11 @@
                 splashLogo.textContent = window.CLIENT_CONFIG.name;
                 document.fonts.ready.then(() => {
                     splashLogo.style.animation = 'splashFadeInOut 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    const splashCaption = document.getElementById('splashCaption');
+                    if (splashCaption) {
+                        splashCaption.textContent = window.CLIENT_CONFIG.splashCaption || '';
+                        splashCaption.style.animation = 'splashCaptionFade 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    }
                 });
             }
         </script>
@@ -114,7 +122,7 @@
     <section id="selected-clients" style="padding: 0 0 64px 0;">
         <div class="container">
             <div style="grid-column: span 12; text-align: center;">
-                <h3 class="reveal" style="font-size: 12px; letter-spacing: 0.3em; margin-bottom: 48px; opacity: 0.5; font-weight: 400;">
+                <h3 class="client-strip-title reveal">
                     <span lang="en">Selected Clients</span>
                     <span lang="th">ลูกค้าที่ร่วมงาน</span>
                 </h3>
@@ -144,18 +152,18 @@
                             <img src="image/portfolio/02.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/03.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/04.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
-                            <img src="image/portfolio/05.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
-                            <img src="image/portfolio/06.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                         </div>
                         <div class="masonry-col">
+                            <img src="image/portfolio/05.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
+                            <img src="image/portfolio/06.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/07.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/08.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/09.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
-                            <img src="image/portfolio/10.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                         </div>
                     </div>
                     <div class="portfolio-column">
                         <div class="masonry-col">
+                            <img src="image/portfolio/10.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/11.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/12.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
                             <img src="image/portfolio/13.webp" alt="Work" class="reveal" loading="lazy" decoding="async">
@@ -272,16 +280,31 @@
     <div id="imageModal" class="modal">
         <span class="modal-nav modal-prev">&#10094;</span>
         <img class="modal-content" id="img01">
+        <div class="modal-caption" id="imageModalCaption" aria-live="polite">
+            <div class="modal-caption__kicker" id="imageModalCaptionKicker"></div>
+            <div class="modal-caption__text">
+                <span lang="en" id="imageModalCaptionEn"></span>
+                <span lang="th" id="imageModalCaptionTh"></span>
+            </div>
+        </div>
+        <button type="button" class="modal-caption-toggle" id="imageModalCaptionToggle" aria-pressed="true">
+            <span lang="en" id="imageModalCaptionToggleEn">Captions: On</span>
+            <span lang="th" id="imageModalCaptionToggleTh">คำบรรยาย: เปิด</span>
+        </button>
+        <button type="button" class="modal-fullscreen-toggle" id="imageModalFullscreenToggle" aria-pressed="false">
+            <span lang="en" id="imageModalFullscreenToggleEn">Fullscreen</span>
+            <span lang="th" id="imageModalFullscreenToggleTh">เต็มจอ</span>
+        </button>
         <span class="modal-nav modal-next">&#10095;</span>
     </div>
 
     <!-- Dedicated Comp Card Modal -->
     <div id="compCardModal" class="modal" role="dialog" aria-modal="true" aria-label="Comp Card">
         <img class="modal-content" id="compCardImg" alt="Client Comp Card" style="max-height: 80vh;">
-        <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2001; text-align: center; width: 100%;">
+        <div class="comp-card-modal-note" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2001; text-align: center; width: 100%;">
             <a href="#" id="compCardDownload" download="Comp_Card" class="btn-primary" style="box-shadow: 0 4px 24px rgba(0,0,0,0.4);">
-                <span lang="en">Download PDF</span>
-                <span lang="th">ดาวน์โหลด PDF</span>
+                <span lang="en">Download Comp Card</span>
+                <span lang="th">ดาวน์โหลดคอมพ์การ์ด</span>
             </a>
         </div>
     </div>
