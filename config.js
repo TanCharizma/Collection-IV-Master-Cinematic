@@ -29,8 +29,8 @@ window.CLIENT_CONFIG = {
     },
 
     // 4. Comp Card
-    compCardUrl: "image/compcard.webp", // The image preview shown in the popup (leave blank "" to hide button)
-    compCardDownloadUrl: "image/compcard.png", // High-res comp card image downloaded when they click the button
+    compCardUrl: "image/Folio-Lab-Compcard Cinematic.webp", // The image preview shown in the popup (leave blank "" to hide button)
+    compCardDownloadUrl: "image/Folio-Lab-Compcard Cinematic.png", // High-res comp card image downloaded when they click the button
 
     // 5. Optional Image Modal Captions
     // Set to false for a cleaner modal with no captions.
