@@ -1640,7 +1640,7 @@ section {
     }
 
     .modal.has-caption .modal-content {
-        max-height: calc(100svh - var(--modal-mobile-toolbar-clearance) - 300px);
+        max-height: calc(100svh - var(--modal-mobile-toolbar-clearance) - 72px);
     }
 
     .modal.is-immersive .modal-content {
@@ -1892,18 +1892,18 @@ footer {
 
     .hero {
         padding-top: 72px;
-        padding-bottom: calc(188px + env(safe-area-inset-bottom));
+        padding-bottom: calc(132px + env(safe-area-inset-bottom));
     }
 
     .hero-bg {
-        top: 64px;
-        bottom: 118px;
-        background-position: center 0%;
+        top: 92px;
+        bottom: 92px;
+        background-position: center top;
     }
 
     .hero-content {
         width: min(100%, 620px);
-        transform: translateY(-38px);
+        transform: translateY(-34px);
     }
 
     .hero-content h1 {
@@ -1918,7 +1918,15 @@ footer {
     }
 
     .hero-btns {
-        bottom: calc(82px + env(safe-area-inset-bottom));
+        position: static;
+        width: min(520px, calc(100vw - 48px));
+        margin-top: 24px;
+        transform: none;
+    }
+
+    .hero-btns.reveal,
+    .hero-btns.reveal.active {
+        transform: none;
         width: min(520px, calc(100vw - 48px));
     }
 
@@ -1939,8 +1947,7 @@ footer {
         .featured-item:nth-child(3) { margin-top: 0; }
         .featured-item:nth-child(4) { margin-top: 0; }
     .full-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
         gap: var(--gutter);
     }
     .portfolio-column:nth-child(2) {
@@ -1948,7 +1955,14 @@ footer {
     }
     .portfolio-column,
     .masonry-col {
-        display: contents;
+        display: flex;
+        flex-direction: column;
+        gap: var(--gutter);
+    }
+
+    .portfolio-column {
+        flex: 1;
+        min-width: 0;
     }
     .portfolio-column:first-child .masonry-col:first-child,
     .portfolio-column:first-child .masonry-col:first-child img:first-child {
@@ -2004,20 +2018,20 @@ footer {
     .btn-book { padding: 8px 16px; font-size: 12px; }
     
     .hero {
-        padding-bottom: calc(228px + env(safe-area-inset-bottom));
+        padding-bottom: calc(156px + env(safe-area-inset-bottom));
     }
 
     .hero-bg {
-        top: 58px;
-        bottom: 138px;
-        background-position: center 0%;
+        top: 92px;
+        bottom: 96px;
+        background-position: center top;
     }
 
     .hero-content {
-        transform: translateY(-58px);
+        transform: translateY(-42px);
     }
 
-    .hero-btns { flex-direction: column; gap: 10px; align-items: center; bottom: calc(92px + env(safe-area-inset-bottom)); }
+    .hero-btns { flex-direction: column; gap: 10px; align-items: center; margin-top: 20px; }
     .hero-btns .btn-primary,
     .hero-btns .btn-secondary {
         width: min(260px, calc(100vw - 76px));

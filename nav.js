@@ -367,7 +367,7 @@
         const wasMenuOpen = navElement.classList.contains('nav-open');
         if (wasMenuOpen) closeMobileMenu();
 
-        glideToAnchor(targetId, wasMenuOpen ? 140 : 0);
+        glideToAnchor(targetId, wasMenuOpen ? 260 : 0);
     });
 
     // Theme Switching Logic

@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let modalIsImmersive = false;
 
         const getModalCenterY = () => (
-            modal.classList.contains('has-caption') && window.innerWidth <= 768 ? '-64%' : '-50%'
+            modal.classList.contains('has-caption') && window.innerWidth <= 768 ? '-52%' : '-50%'
         );
         const getModalRestTransform = (scale = '') => `translate(-50%, ${getModalCenterY()})${scale}`;
         const getModalOffsetTransform = (offsetX) => `translate(calc(-50% + ${offsetX}px), ${getModalCenterY()})`;
