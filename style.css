@@ -1323,6 +1323,18 @@ section {
         pointer-events: none;
     }
 
+    body.solid-mobile-status::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: env(safe-area-inset-top);
+        background: #0A0A0A;
+        z-index: 10000;
+        pointer-events: none;
+    }
+
     .hero,
     .app-transition-curtain,
     .splash-screen {
