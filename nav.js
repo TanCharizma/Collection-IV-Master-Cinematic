@@ -390,6 +390,7 @@
         if (!isSamePageHash) return;
 
         const targetId = href.substring(href.indexOf('#'));
+        if (targetId === '#') return;
         if (!document.querySelector(targetId)) return;
 
         e.preventDefault();

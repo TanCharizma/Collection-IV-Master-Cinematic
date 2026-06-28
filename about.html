@@ -50,20 +50,15 @@
 <body>
 
     <script src="nav.js"></script>
-    <div class="scroll-hint" style="position: fixed; z-index: 100;">
-        <span lang="en">Scroll</span>
-        <span lang="th">เลื่อนลง</span>
-        <span class="arrow">↓</span>
-    </div>
 
-    <section style="padding-top: 64px; border-top: none;">
+    <section class="about-intro">
         <div class="container">
-            <div style="grid-column: span 12;">
+            <div class="section-grid-full">
                 <h2 class="page-header reveal">
                     <span lang="en">About</span>
                     <span lang="th">เกี่ยวกับฉัน</span>
                 </h2>
-                <div class="split-layout" style="text-align: left;">
+                <div class="split-layout">
                     <img src="image/about/01.webp" alt="Portrait" class="reveal" loading="lazy">
                     <div class="bio reveal delay-1">
                         <p lang="en">Client bio opening. Replace this with a concise statement about presence, point of view, and creative direction.</p>
@@ -78,34 +73,39 @@
                 </div>
             </div>
         </div>
+        <a href="#about-clients" class="scroll-hint about-scroll-hint" aria-label="Scroll to clients">
+            <span lang="en">Scroll</span>
+            <span lang="th">เลื่อนลง</span>
+            <span class="arrow">↓</span>
+        </a>
     </section>
 
-    <section class="container" style="background: var(--surface);">
-        <div style="grid-column: span 12; padding: 64px 0;">
+    <section id="about-clients" class="container about-clients">
+        <div class="section-grid-full about-clients__inner">
             <h2 class="client-strip-title reveal">
                 <span lang="en">Clients</span>
                 <span lang="th">ลูกค้าที่ร่วมงาน</span>
             </h2>
-            <div class="reveal delay-1" style="display: flex; justify-content: center; align-items: center; font-family: var(--serif); font-size: 24px; opacity: 0.6; flex-wrap: wrap; gap: 80px;">
-                <img src="image/brand_icons/vogue.webp" alt="VOGUE" class="brand-logo" style="height: 30px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
-                <img src="image/brand_icons/elle.webp" alt="ELLE" class="brand-logo" style="height: 30px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
-                <img src="image/brand_icons/cartier.webp" alt="CARTIER" class="brand-logo" style="height: 30px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
-                <img src="image/brand_icons/armani.webp" alt="ARMANI" class="brand-logo" style="height: 30px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
-                <img src="image/brand_icons/levi.webp" alt="LEVI'S" class="brand-logo" style="height: 30px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
+            <div class="brand-strip brand-strip--about reveal delay-1">
+                <img src="image/brand_icons/vogue.webp" alt="VOGUE" class="brand-logo" loading="lazy" decoding="async">
+                <img src="image/brand_icons/elle.webp" alt="ELLE" class="brand-logo" loading="lazy" decoding="async">
+                <img src="image/brand_icons/cartier.webp" alt="CARTIER" class="brand-logo" loading="lazy" decoding="async">
+                <img src="image/brand_icons/armani.webp" alt="ARMANI" class="brand-logo" loading="lazy" decoding="async">
+                <img src="image/brand_icons/levi.webp" alt="LEVI'S" class="brand-logo" loading="lazy" decoding="async">
             </div>
         </div>
     </section>
 
-    <section class="container" style="padding-bottom: 96px;">
-        <div style="grid-column: span 12;">
-            <div class="reveal" style="padding: 64px; border: 1px solid var(--border-subtle);">
+    <section class="container about-manifesto">
+        <div class="section-grid-full">
+            <div class="editorial-frame reveal">
                 <p class="editorial-quote">
                     <span lang="en">Client manifesto placeholder. Replace with one sharp line that captures their creative presence.</span>
                     <span lang="th">ข้อความแมนิเฟสโตตัวอย่าง แทนที่ด้วยประโยคสั้นคมที่สะท้อนตัวตนและทิศทางสร้างสรรค์ของลูกค้า</span>
                 </p>
             </div>
             
-            <div style="margin-top: 64px; text-align: center;">
+            <div class="about-booking-cta">
                 <h3 class="reveal">
                     <span lang="en">For bookings and inquiries</span>
                     <span lang="th">สำหรับการจองและติดต่อสอบถาม</span>
