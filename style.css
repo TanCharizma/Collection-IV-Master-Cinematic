@@ -1797,6 +1797,16 @@ section {
     border-top: none;
 }
 
+@media (max-width: 1024px) {
+    body.solid-mobile-status .about-intro,
+    body.solid-mobile-status .booking-intro {
+        top: calc(-1 * var(--mobile-viewport-overbleed));
+        margin-bottom: calc(-1 * var(--mobile-viewport-overbleed));
+        padding-top: calc(64px + var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
+        background: #0A0A0A;
+    }
+}
+
 .booking-description {
     max-width: 600px;
     margin: 0;
