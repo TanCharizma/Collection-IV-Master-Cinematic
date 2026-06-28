@@ -1323,6 +1323,13 @@ section {
         pointer-events: none;
     }
 
+    body.solid-mobile-status nav.scrolled {
+        top: calc(-1 * var(--mobile-viewport-overbleed));
+        height: calc(64px + var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
+        padding-top: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
+        background: #0A0A0A;
+    }
+
     body.solid-mobile-status::before {
         content: "";
         position: fixed;
