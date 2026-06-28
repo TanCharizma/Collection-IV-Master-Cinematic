@@ -1317,7 +1317,7 @@ section {
         left: 0;
         right: 0;
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
-        background: var(--nav-bg);
+        background: #0A0A0A;
         backdrop-filter: blur(10px);
         z-index: 99;
         pointer-events: none;
