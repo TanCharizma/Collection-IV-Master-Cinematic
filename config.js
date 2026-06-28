@@ -106,37 +106,18 @@
     };
 
     // SWAP: modal captions. Remove an entry or set showImageCaptions false to hide it.
+    // Digitals intentionally ship without captions; they keep fullscreen controls only.
     const captions = {
         showImageCaptions: true,
         items: {
-            [path.highlights[0]]: { kicker: "Highlights / 01", en: "A restrained portrait study shaped by cinematic light.", th: "[คำบรรยายภาษาไทย]" },
-            [path.highlights[1]]: { kicker: "Highlights / 02", en: "Soft movement, editorial poise, and quiet atmosphere.", th: "[คำบรรยายภาษาไทย]" },
-            [path.highlights[2]]: { kicker: "Highlights / 03", en: "Natural presence framed with a film-still sensibility.", th: "[คำบรรยายภาษาไทย]" },
-            [path.highlights[3]]: { kicker: "Highlights / 04", en: "A composed visual moment with subtle dramatic tension.", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[0]]: { kicker: "Portfolio / 01", en: "Editorial composition with a quiet, high-contrast mood.", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[1]]: { kicker: "Portfolio / 02", en: "A cinematic frame focused on posture and presence.", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[2]]: { kicker: "Portfolio / 03", en: "Soft styling and direct gaze in a polished portfolio study.", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[3]]: { kicker: "Portfolio / 04", en: "A minimal frame built around shape, shadow, and restraint.", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[4]]: { kicker: "Portfolio / 05", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[5]]: { kicker: "Portfolio / 06", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[6]]: { kicker: "Portfolio / 07", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[7]]: { kicker: "Portfolio / 08", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[8]]: { kicker: "Portfolio / 09", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[9]]: { kicker: "Portfolio / 10", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[10]]: { kicker: "Portfolio / 11", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[11]]: { kicker: "Portfolio / 12", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[12]]: { kicker: "Portfolio / 13", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[13]]: { kicker: "Portfolio / 14", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[14]]: { kicker: "Portfolio / 15", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[15]]: { kicker: "Portfolio / 16", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[16]]: { kicker: "Portfolio / 17", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[17]]: { kicker: "Portfolio / 18", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[18]]: { kicker: "Portfolio / 19", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.portfolio[19]]: { kicker: "Portfolio / 20", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.digitals[0]]: { kicker: "Digitals / 01", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.digitals[1]]: { kicker: "Digitals / 02", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.digitals[2]]: { kicker: "Digitals / 03", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" },
-            [path.digitals[3]]: { kicker: "Digitals / 04", en: "[English caption here]", th: "[คำบรรยายภาษาไทย]" }
+            [path.highlights[0]]: { kicker: "Highlights / 01", en: "A restrained portrait study shaped by cinematic light.", th: "พอร์ตเทรตที่นิ่งและละเมียดภายใต้แสงแบบภาพยนตร์" },
+            [path.highlights[1]]: { kicker: "Highlights / 02", en: "Soft movement, editorial poise, and quiet atmosphere.", th: "การเคลื่อนไหวที่นุ่มนวล ท่าทีแบบเอดิทอเรียล และบรรยากาศที่สงบ" },
+            [path.highlights[2]]: { kicker: "Highlights / 03", en: "Natural presence framed with a film-still sensibility.", th: "ตัวตนที่เป็นธรรมชาติในกรอบภาพที่ให้ความรู้สึกเหมือนเฟรมจากภาพยนตร์" },
+            [path.highlights[3]]: { kicker: "Highlights / 04", en: "A composed visual moment with subtle dramatic tension.", th: "ช่วงเวลาทางภาพที่นิ่ง สงบ และมีแรงดึงดูดอย่างละเอียด" },
+            [path.portfolio[0]]: { kicker: "Portfolio / 01", en: "Editorial composition with a quiet, high-contrast mood.", th: "องค์ประกอบแบบเอดิทอเรียลพร้อมอารมณ์ภาพที่นิ่งและมีคอนทราสต์" },
+            [path.portfolio[1]]: { kicker: "Portfolio / 02", en: "A cinematic frame focused on posture and presence.", th: "เฟรมแบบภาพยนตร์ที่เน้นท่วงท่าและการปรากฏตัว" },
+            [path.portfolio[2]]: { kicker: "Portfolio / 03", en: "Soft styling and direct gaze in a polished portfolio study.", th: "สไตลิ่งที่นุ่มนวลและสายตาที่ชัดเจนในภาพพอร์ตที่เรียบเนี้ยบ" },
+            [path.portfolio[3]]: { kicker: "Portfolio / 04", en: "A minimal frame built around shape, shadow, and restraint.", th: "เฟรมมินิมัลที่สร้างจากรูปทรง เงา และความยับยั้งอย่างพอดี" }
         }
     };
 
