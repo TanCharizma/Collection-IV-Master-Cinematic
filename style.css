@@ -190,6 +190,11 @@ nav {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+nav > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* --- NAVIGATION ENTRANCE ANIMATION --- */
 @keyframes navEntrance {
     from {
@@ -1321,6 +1326,18 @@ section {
         background: #0A0A0A;
         backdrop-filter: blur(10px);
         z-index: 99;
+        pointer-events: none;
+    }
+
+    nav::before {
+        content: "";
+        position: absolute;
+        top: calc(-1 * var(--mobile-viewport-overbleed));
+        left: 0;
+        right: 0;
+        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        background: #0A0A0A;
+        z-index: 0;
         pointer-events: none;
     }
 
