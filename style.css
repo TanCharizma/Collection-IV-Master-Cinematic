@@ -1309,28 +1309,12 @@ section {
     html::before {
         top: calc(-1 * var(--mobile-viewport-overbleed));
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
-        background: #0A0A0A;
+        background: var(--bg);
         z-index: 1498;
-    }
-
-    html::after {
-        bottom: calc(-1 * var(--mobile-viewport-overbleed));
-        height: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-bottom));
-    }
-
-    .mobile-status-cover {
-        display: none;
     }
 
     nav {
         z-index: 1500;
-    }
-
-    .about-intro::before,
-    .booking-intro::before {
-        top: calc(-1 * (var(--mobile-viewport-overbleed) + var(--mobile-statusbar-overshoot) + env(safe-area-inset-top)));
-        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-overshoot) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
-        z-index: 2;
     }
 
     .hero,
@@ -1795,19 +1779,6 @@ section {
     padding-bottom: 96px;
     border-top: none;
     position: relative;
-}
-
-.about-intro::before,
-.booking-intro::before {
-    content: "";
-    position: absolute;
-    top: -64px;
-    left: 0;
-    right: 0;
-    height: 64px;
-    background: var(--bg);
-    z-index: 2;
-    pointer-events: none;
 }
 
 .booking-description {
