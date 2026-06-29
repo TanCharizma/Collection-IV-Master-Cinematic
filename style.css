@@ -1297,8 +1297,6 @@ section {
         --mobile-viewport-overbleed: 15vh;
         --mobile-statusbar-clearance: 64px;
         --mobile-statusbar-overshoot: 96px;
-        --mobile-status-cover-lift: 15vh;
-        --mobile-status-cover-visible-height: 56px;
     }
 
     html,
@@ -1323,11 +1321,12 @@ section {
     .mobile-status-cover {
         display: block;
         position: fixed;
-        top: calc(-1 * var(--mobile-status-cover-lift));
+        top: -100vh;
+        top: -100lvh;
         left: 0;
         right: 0;
-        height: calc(var(--mobile-status-cover-lift) + var(--mobile-status-cover-visible-height));
-        min-height: calc(var(--mobile-status-cover-lift) + env(safe-area-inset-top));
+        height: 115vh;
+        height: 115lvh;
         background: #0A0A0A;
         backdrop-filter: blur(10px);
         z-index: 1501;
