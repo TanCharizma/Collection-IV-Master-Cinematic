@@ -1324,10 +1324,11 @@ section {
         top: 0;
         left: 0;
         right: 0;
-        height: calc(var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        height: 48px;
+        height: max(48px, env(safe-area-inset-top));
         background: #0A0A0A;
         backdrop-filter: blur(10px);
-        z-index: 1499;
+        z-index: 1501;
         pointer-events: none;
     }
 
