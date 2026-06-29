@@ -1303,6 +1303,7 @@ section {
     html::before {
         top: calc(-1 * var(--mobile-viewport-overbleed));
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        background: #0A0A0A;
     }
 
     html::after {
