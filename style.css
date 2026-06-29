@@ -17,8 +17,8 @@
     /* 3. SPACING */
     --margin: 80px;
     --gutter: 8px; /* Tighter cinematic masonry gap */
-    --mobile-viewport-overbleed: 0px;
-    --mobile-statusbar-clearance: 0px;
+    --mobile-viewport-overbleed: 15vh;
+    --mobile-statusbar-clearance: 64px;
 
     /* Theme-aware variables */
     --bg: #F5F5F5; /* Neutral gray off-white */
@@ -1293,12 +1293,6 @@ section {
 }
 
 @media (max-width: 1024px) {
-    :root {
-        --mobile-viewport-overbleed: 15vh;
-        --mobile-statusbar-clearance: 64px;
-        --mobile-statusbar-overshoot: 96px;
-    }
-
     html,
     body {
         min-height: 100%;
