@@ -183,7 +183,7 @@ nav {
     position: fixed;
     top: 0; 
     width: 100%;
-    z-index: 100;
+    z-index: 102;
     background: var(--nav-bg);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-subtle);
@@ -1325,19 +1325,7 @@ section {
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
         background: #0A0A0A;
         backdrop-filter: blur(10px);
-        z-index: 99;
-        pointer-events: none;
-    }
-
-    nav::before {
-        content: "";
-        position: absolute;
-        top: calc(-1 * var(--mobile-viewport-overbleed));
-        left: 0;
-        right: 0;
-        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
-        background: #0A0A0A;
-        z-index: 0;
+        z-index: 101;
         pointer-events: none;
     }
 
