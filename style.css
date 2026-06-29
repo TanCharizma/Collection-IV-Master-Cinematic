@@ -1309,6 +1309,7 @@ section {
         top: calc(-1 * var(--mobile-viewport-overbleed));
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
         background: #0A0A0A;
+        z-index: 1498;
     }
 
     html::after {
@@ -1318,15 +1319,26 @@ section {
 
     .mobile-status-cover {
         display: block;
-        position: fixed;
-        top: calc(-1 * var(--mobile-viewport-overbleed));
+        position: sticky;
+        top: 0;
         left: 0;
         right: 0;
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        margin-bottom: calc(-1 * (var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top)));
         background: #0A0A0A;
         backdrop-filter: blur(10px);
-        z-index: 101;
+        z-index: 1499;
         pointer-events: none;
+    }
+
+    nav {
+        z-index: 1500;
+    }
+
+    .about-intro::before,
+    .booking-intro::before {
+        top: calc(-1 * (var(--mobile-viewport-overbleed) + env(safe-area-inset-top)));
+        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
     }
 
     .hero,
@@ -1749,6 +1761,8 @@ section {
 .about-intro {
     padding-top: 64px;
     border-top: none;
+    position: relative;
+    isolation: isolate;
 }
 
 .about-scroll-hint {
@@ -1789,6 +1803,21 @@ section {
     padding-top: 64px;
     padding-bottom: 96px;
     border-top: none;
+    position: relative;
+    isolation: isolate;
+}
+
+.about-intro::before,
+.booking-intro::before {
+    content: "";
+    position: absolute;
+    top: -64px;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #0A0A0A;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .booking-description {
