@@ -1805,7 +1805,7 @@ section {
     left: 0;
     right: 0;
     height: 64px;
-    background: #0A0A0A;
+    background: var(--bg);
     z-index: 2;
     pointer-events: none;
 }
