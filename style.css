@@ -1296,6 +1296,7 @@ section {
     :root {
         --mobile-viewport-overbleed: 15vh;
         --mobile-statusbar-clearance: 64px;
+        --mobile-statusbar-overshoot: 96px;
     }
 
     html,
@@ -1337,8 +1338,9 @@ section {
 
     .about-intro::before,
     .booking-intro::before {
-        top: calc(-1 * (var(--mobile-viewport-overbleed) + env(safe-area-inset-top)));
-        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        top: calc(-1 * (var(--mobile-viewport-overbleed) + var(--mobile-statusbar-overshoot) + env(safe-area-inset-top)));
+        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-overshoot) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        z-index: 2;
     }
 
     .hero,
