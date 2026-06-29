@@ -1300,6 +1300,22 @@ section {
         overscroll-behavior-x: none;
     }
 
+    nav.scrolled {
+        background: var(--bg);
+        backdrop-filter: none;
+    }
+
+    nav.scrolled::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 100%;
+        height: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
+        background: var(--bg);
+        pointer-events: none;
+    }
+
     html::before {
         top: calc(-1 * var(--mobile-viewport-overbleed));
         height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
