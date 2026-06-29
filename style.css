@@ -1297,6 +1297,7 @@ section {
         --mobile-viewport-overbleed: 15vh;
         --mobile-statusbar-clearance: 64px;
         --mobile-statusbar-overshoot: 96px;
+        --mobile-status-cover-lift: 7px;
     }
 
     html,
@@ -1321,7 +1322,7 @@ section {
     .mobile-status-cover {
         display: block;
         position: fixed;
-        top: 0;
+        top: calc(-1 * var(--mobile-status-cover-lift));
         left: 0;
         right: 0;
         height: 48px;
