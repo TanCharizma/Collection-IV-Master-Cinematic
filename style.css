@@ -1297,7 +1297,7 @@ section {
         --mobile-viewport-overbleed: 15vh;
         --mobile-statusbar-clearance: 64px;
         --mobile-statusbar-overshoot: 96px;
-        --mobile-status-cover-lift: 7px;
+        --mobile-status-cover-lift: 15vh;
     }
 
     html,
@@ -1325,8 +1325,8 @@ section {
         top: calc(-1 * var(--mobile-status-cover-lift));
         left: 0;
         right: 0;
-        height: 48px;
-        height: max(48px, env(safe-area-inset-top));
+        height: var(--mobile-status-cover-lift);
+        min-height: max(48px, env(safe-area-inset-top));
         background: #0A0A0A;
         backdrop-filter: blur(10px);
         z-index: 1501;
