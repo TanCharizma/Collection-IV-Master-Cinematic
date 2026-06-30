@@ -1340,12 +1340,12 @@ section {
     .mobile-status-cover {
         display: block;
         position: fixed;
-        top: 0;
+        top: calc(-1 * var(--mobile-viewport-overbleed));
         left: 0;
         right: 0;
         width: 100%;
-        height: 64px;
-        height: max(64px, env(safe-area-inset-top));
+        height: calc(var(--mobile-viewport-overbleed) + 52px);
+        height: calc(var(--mobile-viewport-overbleed) + max(52px, env(safe-area-inset-top)));
         background: var(--bg);
         z-index: 10002;
         pointer-events: none;
