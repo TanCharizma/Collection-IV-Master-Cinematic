@@ -18,6 +18,7 @@
     --margin: 80px;
     --gutter: 8px; /* Tighter cinematic masonry gap */
     --mobile-viewport-overbleed: 15vh;
+    --mobile-statusbar-clearance: 64px;
 
     /* Theme-aware variables */
     --bg: #F5F5F5; /* Neutral gray off-white */
@@ -72,6 +73,32 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+html::before,
+html::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    pointer-events: none;
+}
+
+html::before {
+    top: 0;
+    height: env(safe-area-inset-top);
+    z-index: 90;
+}
+
+html::after {
+    bottom: 0;
+    height: env(safe-area-inset-bottom);
+    z-index: 90;
+}
+
+.mobile-status-cover {
+    display: none;
+}
+
 /* Premium Cinematic Film Grain Overlay */
 body::after {
     content: "";
@@ -82,6 +109,11 @@ body::after {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
     opacity: 0.7;
     mix-blend-mode: overlay;
+}
+
+body::before {
+    content: "";
+    display: none;
 }
 
 /* Language Toggle Logic */
@@ -1271,6 +1303,65 @@ section {
         min-height: 100%;
         background: var(--bg);
         overscroll-behavior-x: none;
+    }
+
+    body::before {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        height: max(52px, env(safe-area-inset-top));
+        background: var(--bg);
+        z-index: 10000;
+        pointer-events: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    nav.scrolled {
+        background: var(--bg);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    nav.scrolled::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 100%;
+        height: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
+        background: var(--bg);
+        pointer-events: none;
+    }
+
+    .mobile-status-cover {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        height: max(64px, env(safe-area-inset-top));
+        background: var(--bg);
+        z-index: 10002;
+        pointer-events: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    html::before {
+        top: calc(-1 * var(--mobile-viewport-overbleed));
+        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        background: var(--bg);
+        z-index: 1498;
+    }
+
+    nav {
+        z-index: 1500;
     }
 
     .hero,

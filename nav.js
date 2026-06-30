@@ -32,6 +32,7 @@
 
     const navHTML = `
     <div class="app-transition-curtain ${startClass}" id="appCurtain"></div>
+    <div class="mobile-status-cover" aria-hidden="true"></div>
     <nav class="${navClass}">
         <a href="${logoHref}" class="logo">${window.CLIENT_CONFIG.name}</a>
         <div class="nav-links">
