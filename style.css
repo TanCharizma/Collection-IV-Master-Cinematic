@@ -2077,14 +2077,14 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
 
 @media (max-width: 768px) {
     .modal {
-        --modal-mobile-toolbar-clearance: clamp(84px, 10vh, 128px);
+        --modal-mobile-toolbar-clearance: clamp(68px, 8vh, 104px);
         --modal-mobile-gap: 8px;
         --modal-mobile-control-height: 36px;
         --modal-caption-height: 0px;
-        top: calc(-1 * var(--mobile-viewport-overbleed));
-        height: calc(100dvh + var(--mobile-viewport-overbleed) + var(--mobile-viewport-overbleed));
-        padding-top: calc(var(--mobile-viewport-overbleed) + max(24px, env(safe-area-inset-top)));
-        padding-bottom: calc(var(--mobile-viewport-overbleed) + max(72px, env(safe-area-inset-bottom)));
+        top: calc(-1 * max(24px, env(safe-area-inset-top)));
+        height: calc(100dvh + max(24px, env(safe-area-inset-top)) + max(48px, env(safe-area-inset-bottom)));
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(48px, env(safe-area-inset-bottom));
         box-sizing: border-box;
     }
 
@@ -2107,7 +2107,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
         align-items: center;
         justify-content: center;
         gap: 16px;
-        padding: calc(var(--mobile-viewport-overbleed) + 28px + max(24px, env(safe-area-inset-top))) 18px calc(var(--mobile-viewport-overbleed) + var(--modal-mobile-toolbar-clearance) + max(72px, env(safe-area-inset-bottom)));
+        padding: calc(28px + max(24px, env(safe-area-inset-top))) 18px calc(var(--modal-mobile-toolbar-clearance) + max(54px, env(safe-area-inset-bottom)));
     }
 
     .comp-card-modal-note {
@@ -2138,10 +2138,10 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
     .modal-caption {
         left: 16px;
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) - var(--mobile-viewport-overbleed));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)));
         max-width: none;
-        max-height: min(24vh, 190px);
-        padding: 14px 16px;
+        max-height: min(22vh, 176px);
+        padding: 12px 14px;
     }
 
     .modal-caption__text {
@@ -2150,7 +2150,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
 
     .modal-caption-toggle {
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) - var(--mobile-viewport-overbleed));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap));
         min-height: var(--modal-mobile-control-height);
         font-size: 9px;
         letter-spacing: 0.18em;
@@ -2159,7 +2159,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
 
     .modal-fullscreen-toggle {
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) + var(--modal-mobile-control-height) + var(--modal-mobile-gap) - var(--mobile-viewport-overbleed));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) + var(--modal-mobile-control-height) + var(--modal-mobile-gap));
         min-height: var(--modal-mobile-control-height);
         font-size: 9px;
         letter-spacing: 0.18em;
@@ -2167,7 +2167,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
     }
 
     .modal:not(.has-caption-controls) .modal-fullscreen-toggle {
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) - var(--mobile-viewport-overbleed));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)));
     }
 }
 
