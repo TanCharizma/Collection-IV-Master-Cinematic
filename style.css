@@ -1302,6 +1302,7 @@ section {
 
     nav.scrolled {
         background: var(--bg);
+        -webkit-backdrop-filter: none;
         backdrop-filter: none;
     }
 
@@ -1313,6 +1314,18 @@ section {
         bottom: 100%;
         height: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
         background: var(--bg);
+        pointer-events: none;
+    }
+
+    .mobile-status-cover {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: calc(var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        background: var(--bg);
+        z-index: 1499;
         pointer-events: none;
     }
 
