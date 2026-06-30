@@ -18,7 +18,6 @@
     --margin: 80px;
     --gutter: 8px; /* Tighter cinematic masonry gap */
     --mobile-viewport-overbleed: 15vh;
-    --mobile-statusbar-clearance: 52px;
 
     /* Theme-aware variables */
     --bg: #F5F5F5; /* Neutral gray off-white */
@@ -2164,15 +2163,7 @@ footer {
 
     .about-intro,
     .booking-intro {
-        padding-top: calc(96px + var(--mobile-statusbar-clearance));
-    }
-
-    nav.scrolled {
-        height: calc(64px + var(--mobile-statusbar-clearance));
-        padding-top: var(--mobile-statusbar-clearance);
-        background: var(--bg);
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
+        padding-top: 96px;
     }
 
     /* Trigger Mobile Hamburger Menu on Tablets */
