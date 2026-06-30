@@ -1349,8 +1349,6 @@ section {
     }
 
     nav {
-        height: calc(64px + env(safe-area-inset-top));
-        padding-top: env(safe-area-inset-top);
         z-index: 1500;
     }
 
@@ -2244,7 +2242,7 @@ footer {
 
     .about-intro,
     .booking-intro {
-        padding-top: calc(128px + env(safe-area-inset-top));
+        padding-top: 96px;
     }
 
     /* Trigger Mobile Hamburger Menu on Tablets */
@@ -2382,7 +2380,7 @@ footer {
     
     .container { grid-template-columns: 1fr; } /* Simplifies layout for tablets */
 
-    nav { padding: env(safe-area-inset-top) 24px 0; }
+    nav { padding: 0 24px; }
 
     .hero {
         padding-top: 72px;
@@ -2547,7 +2545,7 @@ footer {
     .hero-tagline { font-size: 13px; letter-spacing: 0.1em; }
     .page-header { font-size: clamp(38px, 12vw, 52px); margin-bottom: 28px; }
     
-    nav { height: calc(64px + env(safe-area-inset-top)); }
+    nav { height: 64px; }
     .btn-book { padding: 8px 16px; font-size: 12px; }
     
     .hero {
