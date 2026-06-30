@@ -2081,10 +2081,10 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
         --modal-mobile-gap: 8px;
         --modal-mobile-control-height: 36px;
         --modal-caption-height: 0px;
-        top: calc(-1 * max(24px, env(safe-area-inset-top)));
-        height: calc(100dvh + max(24px, env(safe-area-inset-top)) + max(72px, env(safe-area-inset-bottom)));
-        padding-top: max(24px, env(safe-area-inset-top));
-        padding-bottom: max(72px, env(safe-area-inset-bottom));
+        top: calc(-1 * var(--mobile-viewport-overbleed));
+        height: calc(100dvh + var(--mobile-viewport-overbleed) + var(--mobile-viewport-overbleed));
+        padding-top: calc(var(--mobile-viewport-overbleed) + max(24px, env(safe-area-inset-top)));
+        padding-bottom: calc(var(--mobile-viewport-overbleed) + max(72px, env(safe-area-inset-bottom)));
         box-sizing: border-box;
     }
 
@@ -2107,7 +2107,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
         align-items: center;
         justify-content: center;
         gap: 16px;
-        padding: calc(28px + max(24px, env(safe-area-inset-top))) 18px calc(var(--modal-mobile-toolbar-clearance) + max(72px, env(safe-area-inset-bottom)));
+        padding: calc(var(--mobile-viewport-overbleed) + 28px + max(24px, env(safe-area-inset-top))) 18px calc(var(--mobile-viewport-overbleed) + var(--modal-mobile-toolbar-clearance) + max(72px, env(safe-area-inset-bottom)));
     }
 
     .comp-card-modal-note {
@@ -2267,14 +2267,14 @@ footer {
 
     .nav-links {
         position: fixed;
-        top: calc(-1 * max(24px, env(safe-area-inset-top)));
+        top: calc(-1 * var(--mobile-viewport-overbleed));
         right: 0;
-        bottom: calc(-1 * max(48px, env(safe-area-inset-bottom)));
+        bottom: calc(-1 * var(--mobile-viewport-overbleed));
         left: 0;
         transform: translateX(100%);
         width: 100%;
         height: auto;
-        min-height: calc(100dvh + max(24px, env(safe-area-inset-top)) + max(48px, env(safe-area-inset-bottom)));
+        min-height: calc(100dvh + var(--mobile-viewport-overbleed) + var(--mobile-viewport-overbleed));
         background: var(--nav-bg);
         backdrop-filter: blur(15px); /* Reduced for buttery smooth mobile entrance */
         flex-direction: column;
@@ -2283,7 +2283,7 @@ footer {
         gap: 16px;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Faster snap */
         z-index: 1000;
-        padding: calc(96px + max(24px, env(safe-area-inset-top))) 48px calc(120px + max(48px, env(safe-area-inset-bottom)));
+        padding: calc(var(--mobile-viewport-overbleed) + 96px) 48px calc(var(--mobile-viewport-overbleed) + 120px);
         margin-left: 0;
         overflow-x: hidden;
         overflow-y: auto;
