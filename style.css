@@ -2138,7 +2138,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
     .modal-caption {
         left: 16px;
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) - var(--mobile-viewport-overbleed));
         max-width: none;
         max-height: min(24vh, 190px);
         padding: 14px 16px;
@@ -2150,7 +2150,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
 
     .modal-caption-toggle {
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) - var(--mobile-viewport-overbleed));
         min-height: var(--modal-mobile-control-height);
         font-size: 9px;
         letter-spacing: 0.18em;
@@ -2159,7 +2159,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
 
     .modal-fullscreen-toggle {
         right: 16px;
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) + var(--modal-mobile-control-height) + var(--modal-mobile-gap));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) + var(--modal-caption-height) + var(--modal-mobile-gap) + var(--modal-mobile-control-height) + var(--modal-mobile-gap) - var(--mobile-viewport-overbleed));
         min-height: var(--modal-mobile-control-height);
         font-size: 9px;
         letter-spacing: 0.18em;
@@ -2167,7 +2167,7 @@ body.lang-th .split-layout .bio p[lang="en"]:first-child::first-letter {
     }
 
     .modal:not(.has-caption-controls) .modal-fullscreen-toggle {
-        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)));
+        bottom: calc(var(--modal-mobile-toolbar-clearance) + max(16px, env(safe-area-inset-bottom)) - var(--mobile-viewport-overbleed));
     }
 }
 
