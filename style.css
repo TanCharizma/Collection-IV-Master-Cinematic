@@ -1320,11 +1320,13 @@ section {
     .mobile-status-cover {
         display: block;
         position: fixed;
-        top: 0;
+        top: calc(-1 * var(--mobile-viewport-overbleed));
         left: 0;
         right: 0;
-        height: calc(var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
+        height: calc(var(--mobile-viewport-overbleed) + var(--mobile-statusbar-clearance) + env(safe-area-inset-top));
         background: var(--bg);
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
         z-index: 1499;
         pointer-events: none;
     }
