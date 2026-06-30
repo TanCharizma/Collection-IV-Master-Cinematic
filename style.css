@@ -111,6 +111,11 @@ body::after {
     mix-blend-mode: overlay;
 }
 
+body::before {
+    content: "";
+    display: none;
+}
+
 /* Language Toggle Logic */
 /* Hide Thai elements by default */
 [lang="th"] { 
@@ -1298,6 +1303,21 @@ section {
         min-height: 100%;
         background: var(--bg);
         overscroll-behavior-x: none;
+    }
+
+    body::before {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        height: max(52px, env(safe-area-inset-top));
+        background: var(--bg);
+        z-index: 10000;
+        pointer-events: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
 
     nav.scrolled {
