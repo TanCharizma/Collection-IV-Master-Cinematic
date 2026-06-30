@@ -1374,6 +1374,11 @@ section {
         min-height: calc(100svh + var(--mobile-viewport-overbleed) + var(--mobile-viewport-overbleed));
     }
 
+    .app-transition-curtain,
+    .splash-screen {
+        z-index: 10004;
+    }
+
     .hero {
         padding-top: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-top));
         padding-bottom: calc(var(--mobile-viewport-overbleed) + env(safe-area-inset-bottom));
