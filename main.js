@@ -134,11 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (splashScreen) {
+            document.documentElement.classList.add('scroll-locked');
+            document.body.classList.add('scroll-locked');
+            document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden'; // Lock screen during splash
             Promise.all([minSplashTime, heroImageLoad]).then(() => {
                 if (heroSection) heroSection.classList.add('loaded');
                 splashScreen.classList.add('hidden');
                 setTimeout(() => {
+                    document.documentElement.classList.remove('scroll-locked');
+                    document.body.classList.remove('scroll-locked');
+                    document.documentElement.style.overflow = '';
                     document.body.style.overflow = ''; // Unlock scrolling
                     triggerHeroEntrance();
                 }, 560); // Trigger hero text reveal as the split splash opens
@@ -588,7 +594,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Filter out any image that is a brand logo and exclude the About split-layout image
+        // Filter out non-gallery images and hidden responsive duplicates.
+        const isVisibleGalleryImage = (img) => {
+            if (!img) return false;
+            if (img.classList.contains('brand-logo') || img.src.includes('brand_icons') || img.closest('.split-layout')) return false;
+            return !!(img.offsetWidth || img.offsetHeight || img.getClientRects().length);
+        };
         const galleryImages = Array.from(document.querySelectorAll('section img')).filter(img => {
             return !img.classList.contains('brand-logo') && !img.src.includes('brand_icons') && !img.closest('.split-layout');
         });
@@ -602,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const parentSection = img.closest('section');
                 currentSectionImages = Array.from(parentSection.querySelectorAll('img'))
-                    .filter(i => !i.classList.contains('brand-logo') && !i.src.includes('brand_icons'));
+                    .filter(isVisibleGalleryImage);
 
                 if (window.innerWidth > 768) {
                     currentSectionImages.sort((a, b) => Math.abs(a.getBoundingClientRect().top - b.getBoundingClientRect().top) > 100
