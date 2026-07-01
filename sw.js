@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cinematic-portfolio-v121';
+const CACHE_NAME = 'cinematic-portfolio-v122';
 
 // Core files to cache instantly when the site first loads
 const CORE_ASSETS = [
