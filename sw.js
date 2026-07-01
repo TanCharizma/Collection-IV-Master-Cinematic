@@ -1,9 +1,11 @@
-const CACHE_NAME = 'cinematic-portfolio-v119';
+const CACHE_NAME = 'cinematic-portfolio-v121';
 
 // Core files to cache instantly when the site first loads
 const CORE_ASSETS = [
     '/',
     '/index.html',
+    '/about.html',
+    '/booking.html',
     '/style.css',
     '/main.js',
     '/nav.js',
@@ -46,7 +48,7 @@ self.addEventListener('fetch', (event) => {
                     caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
                 }
                 return networkResponse;
-            }).catch(() => {}); // Fails silently if offline, relies on cache
+            }).catch(() => cachedResponse); // Failsafe fallback to cache if offline
 
             return cachedResponse || fetchPromise;
         })
