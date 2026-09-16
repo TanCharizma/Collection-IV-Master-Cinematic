@@ -29,6 +29,7 @@
     <link rel="manifest" href="manifest.json">
     <title>Booking | Client Name</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="calendar-preview.css?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="config.js"></script>
 
@@ -58,20 +59,7 @@
                     <span lang="th">ตรวจสอบตารางงานหรือส่งคำขอจองคิวได้ที่ด้านล่าง <br>สามารถติดต่อเพื่อสอบถามราคาก่อนการจองคิว</span>
                 </p>
 
-                <!-- =================================================================== -->
-                <!-- PASTE CLIENT'S CAL.COM EMBED CODE BELOW THIS LINE                   -->
-                <!-- =================================================================== -->
-                <div class="booking-embed-placeholder">
-                    <div class="booking-embed-placeholder__eyebrow">
-                        <span lang="en">Direct Booking Calendar</span>
-                        <span lang="th">ปฏิทินจองคิวโดยตรง</span>
-                    </div>
-                    <p class="booking-embed-placeholder__copy">
-                        <span lang="en">Replace this area with the client’s live Cal.com calendar so visitors can check availability and send requests in one place.</span>
-                        <span lang="th">แทนที่ส่วนนี้ด้วยปฏิทิน Cal.com จริงของลูกค้า เพื่อให้ผู้เข้าชมตรวจสอบตารางงานและส่งคำขอได้ในที่เดียว</span>
-                    </p>
-                </div>
-                <!-- =================================================================== -->
+                <div id="calendar-preview" class="cal-preview"></div>
 
                 <div class="inquiry-section">
                     <h3 class="reveal">
@@ -89,6 +77,7 @@
         </div>
     </section>
 
+    <script src="calendar-preview.js?v=2"></script>
     <script src="footer.js"></script>
     <script src="main.js"></script>
 </body>
